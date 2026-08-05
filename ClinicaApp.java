@@ -79,18 +79,34 @@ public class ClinicaApp {
     }
 
     // ================= ROL B: feature/crud-turnos =================
-    // Responsable de: buscarTurnoPorId, actualizarTurno, cancelarTurno, buscarIndicePorId
+    // Responsable de: buscarTurnoPorId, actualizarTurno, cancelarTurno,
+    //
+    //
+    // buscarIndicePorId
 
     static int buscarIndicePorId(String id) {
-        // TODO (Rol B)
-        // Recorrer la lista y devolver la POSICIÓN del turno cuyo ID coincida.
-        // Si no existe, devolver -1. Este método lo reutilizan los demás roles.
+         for (int i = 0; i < turnos.size(); i++) {
+            if (turnos.get(i).getID().equals(i){
+                return i;
+            }
+        }
         return -1;
     }
 
     static void buscarTurnoPorId() {
-        // TODO (Rol B)
-        // Pedir el ID, usar buscarIndicePorId y mostrar los datos o un mensaje de "no existe".
+        System.out.println("-----------------------------")
+        System.out.println("-  INGRESE EL ID DEL TURNO  -")
+        System.out.println("->   "
+        String id = sc.nextLine();
+        int indice = buscarIndicePorId(id);
+
+        if indice == -1 {
+            System.out.println("El ID buscado no tiene turnos.")
+        } else {
+            Turno t = turnos.get(indice);
+        }
+        )
+        // Datos a mostrar 
     }
 
     static void actualizarTurno() {
@@ -148,10 +164,13 @@ public class ClinicaApp {
 
     static String leerTexto(String msg) {
         String valor;
+                
         do {
-            System.out.print(msg);
+            System.out.print(msg
+                ;
             valor = sc.nextLine().trim();
-            if (valor.isEmpty()) System.out.println("Este campo no puede quedar vacío.");
+            if (valor.isEmpty())
+                System.out.println("Este campo no puede quedar vacío.");
         } while (valor.isEmpty());
         return valor;
     }
