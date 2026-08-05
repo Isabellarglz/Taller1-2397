@@ -92,6 +92,14 @@ public class ClinicaApp {
         System.out.println("No hay turnos registrados.");
         return;
     }
+       System.out.printf("%-6s %-20s %-15s %8s %12s%n",
+            "ID", "Paciente", "Especialidad", "Duración", "Valor/min");
+
+    for (String[] turno : turnos) {
+        System.out.printf("%-6s %-20s %-15s %8s %12s%n",
+                turno[ID], turno[PACIENTE], turno[ESPECIALIDAD],
+                turno[DURACION], turno[VALOR_MINUTO]);
+    }
 
     }
 
