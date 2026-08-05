@@ -94,19 +94,10 @@ public class ClinicaApp {
     }
 
     static void buscarTurnoPorId() {
-        System.out.println("-----------------------------")
-        System.out.println("-  INGRESE EL ID DEL TURNO  -")
-        System.out.println("->   "
-        String id = sc.nextLine();
-        int indice = buscarIndicePorId(id);
-
-        if indice == -1 {
-            System.out.println("El ID buscado no tiene turnos.")
-        } else {
-            Turno t = turnos.get(indice);
-        }
-        )
-        // Datos a mostrar 
+        // TODO (Rol B)
+        // Pedir el ID, usar buscarIndicePorId y mostrar los datos o un mensaje de "no existe".
+  
+        // Datos a mostrar: idTurno, nombrePaciente, especialidad, duracionMinutos, valorMinuto
     }
 
     static void actualizarTurno() {
