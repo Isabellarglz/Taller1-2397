@@ -64,11 +64,27 @@ public class ClinicaApp {
     // Responsable de: mostrarMenu (ya dado), registrarTurno, mostrarTurnos
 
     static void registrarTurno() {
-        // TODO (Rol A)
-        // 1. Pedir id, paciente, especialidad, duración y valor por minuto.
-        // 2. Validar que el ID no exista ya (usar buscarIndicePorId).
-        // 3. Crear el arreglo: String[] turno = new String[CAMPOS];
-        // 4. Agregarlo a la lista con turnos.add(turno);
+      String id = leerTexto("ID del turno: ");
+
+    if (buscarIndicePorId(id) != -1) {
+        System.out.println("Ya existe un turno con ese ID.");
+        return;
+    }
+
+    String paciente = leerTexto("Nombre del paciente: ");
+    String especialidad = leerTexto("Especialidad: ");
+    int duracion = leerEntero("Duración en minutos: ");
+    double valorMinuto = leerDecimal("Valor por minuto: ");
+
+    String[] turno = new String[CAMPOS];
+    turno[ID] = id;
+    turno[PACIENTE] = paciente;
+    turno[ESPECIALIDAD] = especialidad;
+    turno[DURACION] = String.valueOf(duracion);
+    turno[VALOR_MINUTO] = String.valueOf(valorMinuto);
+
+    turnos.add(turno);
+    System.out.println("Turno registrado con éxito.");
     }
 
     static void mostrarTurnos() {
