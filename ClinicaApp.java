@@ -88,10 +88,11 @@ public class ClinicaApp {
     }
 
     static void mostrarTurnos() {
-        // TODO (Rol A)
-        // Si la lista está vacía, avisar al usuario.
-        // Recorrer la lista e imprimir cada turno en formato tabular y legible.
-        // Sugerencia: System.out.printf("%-6s %-20s %-15s %8s %12s%n", ...);
+       if (turnos.isEmpty()) {
+        System.out.println("No hay turnos registrados.");
+        return;
+    }
+
     }
 
     // ================= ROL B: feature/crud-turnos =================
