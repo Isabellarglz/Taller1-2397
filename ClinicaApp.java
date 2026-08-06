@@ -109,17 +109,57 @@ public class ClinicaApp {
     // Responsable de: calcularTotalFacturado, reportePorEspecialidad, validaciones
 
     static void calcularTotalFacturado() {
-        // TODO (Rol C)
-        // Para cada turno: duracionMinutos * valorMinuto.
-        // Mostrar el subtotal de cada turno y el gran total al final.
-        // Recuerde convertir el texto a número antes de operar.
+
+        Double Total = 0;
+
+        for (String[] turno : turnos) {
+
+            Double Subtotal = Double.parseDouble(turno[DURACION]) * Double.parseDouble(turno[VALOR_MINUTO]);
+            System.out.print("El valor total del turno facturado es: $"+Subtotal);
+
+            Total += Subtotal;
+        }
+        
+        System.out.print("El valor total de todos los turno acumulados facturados es:$"+Total);
     }
 
     static void reportePorEspecialidad() {
-        // TODO (Rol C)
-        // Pedir una especialidad y mostrar solo los turnos de esa especialidad,
-        // junto con la cantidad de turnos y el promedio de duración en minutos.
-        // Comparar con equalsIgnoreCase para no depender de mayúsculas.
+
+        if (turnos.isEmpty()) {
+
+            System.out.println("No hay turnos registrados.");
+            return;
+        }
+
+        String especialidadBuscada = leerTexto("Ingrese la especialidad: ");
+
+        int cantidad = 0;
+        int sumaDuracion = 0;
+
+        System.out.println("\nTurnos de la especialidad " + especialidadBuscada + ":");
+
+        for (String[] turno : turnos) {
+
+            if (turno[ESPECIALIDAD].equalsIgnoreCase(especialidadBuscada)) {
+
+                System.out.println("ID: " + turno[ID]);
+
+                cantidad++;
+                sumaDuracion += Integer.parseInt(turno[DURACION]);
+            }
+        }  
+
+        if (cantidad == 0) {
+
+            System.out.println("No existen turnos para esa especialidad.");
+
+        } else {
+            
+            double promedio = (double) sumaDuracion / cantidad;
+
+            System.out.println("Cantidad de turnos: " + cantidad);
+            System.out.println("Promedio de duración: " + promedio + " minutos");
+        }
     }
 
     // ====== Utilidades (ya implementadas, no es necesario modificarlas) ======
