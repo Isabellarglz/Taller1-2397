@@ -32,15 +32,15 @@ public class ClinicaApp {
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
-                case 1 -> registrarTurno();
-                case 2 -> mostrarTurnos();
-                case 3 -> buscarTurnoPorId();
-                case 4 -> actualizarTurno();
-                case 5 -> cancelarTurno();
-                case 6 -> calcularTotalFacturado();
-                case 7 -> reportePorEspecialidad();
-                case 8 -> System.out.println("Cerrando el sistema. Hasta pronto.");
-                default -> System.out.println("Opción inválida. Intente de nuevo.");
+                case 1 : registrarTurno();
+                case 2 : mostrarTurnos();
+                case 3 : buscarTurnoPorId();
+                case 4 : actualizarTurno();
+                case 5 : cancelarTurno();
+                case 6 : calcularTotalFacturado();
+                case 7 : reportePorEspecialidad();
+                case 8 : System.out.println("Cerrando el sistema. Hasta pronto.");
+                default : System.out.println("Opción inválida. Intente de nuevo.");
             }
             System.out.println();
         } while (opcion != 8);
