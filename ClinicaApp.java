@@ -32,15 +32,15 @@ public class ClinicaApp {
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
-                case 1 -> registrarTurno();
-                case 2 -> mostrarTurnos();
-                case 3 -> buscarTurnoPorId();
-                case 4 -> actualizarTurno();
-                case 5 -> cancelarTurno();
-                case 6 -> calcularTotalFacturado();
-                case 7 -> reportePorEspecialidad();
-                case 8 -> System.out.println("Cerrando el sistema. Hasta pronto.");
-                default -> System.out.println("Opción inválida. Intente de nuevo.");
+                case 1 : registrarTurno();
+                case 2 : mostrarTurnos();
+                case 3 : buscarTurnoPorId();
+                case 4 : actualizarTurno();
+                case 5 : cancelarTurno();
+                case 6 : calcularTotalFacturado();
+                case 7 : reportePorEspecialidad();
+                case 8 : System.out.println("Cerrando el sistema. Hasta pronto.");
+                default : System.out.println("Opción inválida. Intente de nuevo.");
             }
             System.out.println();
         } while (opcion != 8);
@@ -64,18 +64,43 @@ public class ClinicaApp {
     // Responsable de: mostrarMenu (ya dado), registrarTurno, mostrarTurnos
 
     static void registrarTurno() {
-        // TODO (Rol A)
-        // 1. Pedir id, paciente, especialidad, duración y valor por minuto.
-        // 2. Validar que el ID no exista ya (usar buscarIndicePorId).
-        // 3. Crear el arreglo: String[] turno = new String[CAMPOS];
-        // 4. Agregarlo a la lista con turnos.add(turno);
+      String id = leerTexto("ID del turno: ");
+
+    if (buscarIndicePorId(id) != -1) {
+        System.out.println("Ya existe un turno con ese ID.");
+        return;
+    }
+
+    String paciente = leerTexto("Nombre del paciente: ");
+    String especialidad = leerTexto("Especialidad: ");
+    int duracion = leerEntero("Duración en minutos: ");
+    double valorMinuto = leerDecimal("Valor por minuto: ");
+
+    String[] turno = new String[CAMPOS];
+    turno[ID] = id;
+    turno[PACIENTE] = paciente;
+    turno[ESPECIALIDAD] = especialidad;
+    turno[DURACION] = String.valueOf(duracion);
+    turno[VALOR_MINUTO] = String.valueOf(valorMinuto);
+
+    turnos.add(turno);
+    System.out.println("Turno registrado con éxito.");
     }
 
     static void mostrarTurnos() {
-        // TODO (Rol A)
-        // Si la lista está vacía, avisar al usuario.
-        // Recorrer la lista e imprimir cada turno en formato tabular y legible.
-        // Sugerencia: System.out.printf("%-6s %-20s %-15s %8s %12s%n", ...);
+       if (turnos.isEmpty()) {
+        System.out.println("No hay turnos registrados.");
+        return;
+    }
+       System.out.printf("%-6s %-20s %-15s %8s %12s%n",
+            "ID", "Paciente", "Especialidad", "Duración", "Valor/min");
+
+    for (String[] turno : turnos) {
+        System.out.printf("%-6s %-20s %-15s %8s %12s%n",
+                turno[ID], turno[PACIENTE], turno[ESPECIALIDAD],
+                turno[DURACION], turno[VALOR_MINUTO]);
+    }
+
     }
 
     // ================= ROL B: feature/crud-turnos =================
