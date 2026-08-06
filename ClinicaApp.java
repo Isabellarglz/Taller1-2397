@@ -85,14 +85,13 @@ public class ClinicaApp {
     // buscarIndicePorId
 
     static int buscarIndicePorId(String id) {
-         for (int i = 0; i < turnos.size(); i++) {
-            if (turnos.get(i).getID().equals(i){
-                return i;
-            }
+    for (int i = 0; i < turnos.size(); i++) {
+        if (turnos.get(i)[ID].equals(id)) {
+            return i;
         }
-        return -1;
     }
-
+    return -1;
+    }
     static void buscarTurnoPorId() {
         String id;
     
