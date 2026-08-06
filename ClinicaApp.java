@@ -79,30 +79,198 @@ public class ClinicaApp {
     }
 
     // ================= ROL B: feature/crud-turnos =================
-    // Responsable de: buscarTurnoPorId, actualizarTurno, cancelarTurno, buscarIndicePorId
+    // Responsable de: buscarTurnoPorId, actualizarTurno, cancelarTurno,
+    //
+    //
+    // buscarIndicePorId
 
     static int buscarIndicePorId(String id) {
-        // TODO (Rol B)
-        // Recorrer la lista y devolver la POSICIÓN del turno cuyo ID coincida.
-        // Si no existe, devolver -1. Este método lo reutilizan los demás roles.
-        return -1;
+    for (int i = 0; i < turnos.size(); i++) {
+        if (turnos.get(i)[ID].equals(id)) {
+            return i;
+        }
+    }
+    return -1;
+    }
+    
+    static void buscarTurnoPorId() {
+        String id;
+        do {
+            System.out.print("Ingrese el ID del turno a buscar: ");
+            id = sc.nextLine().trim();
+            if (id.isEmpty()) {
+                System.out.println("El ID no puede estar vacío. Intente de nuevo.");
+            }
+        } while (id.isEmpty());
+    
+        int indice = buscarIndicePorId(id);
+    
+        if (indice == -1) {
+            System.out.println("No existe un turno con ese ID.");
+        } else {
+            String[] t = turnos.get(indice);
+            System.out.println("ID: " + t[ID]);
+            System.out.println("Paciente: " + t[PACIENTE]);
+            System.out.print0ln("Especialidad: " + t[ESPECIALIDAD]);
+            System.out.println("Duración: " + t[DURACION] + " min");
+            System.out.println("Valor por minuto: " + t[VALOR_MINUTO]);
+        }
     }
 
-    static void buscarTurnoPorId() {
-        // TODO (Rol B)
-        // Pedir el ID, usar buscarIndicePorId y mostrar los datos o un mensaje de "no existe".
-    }
 
     static void actualizarTurno() {
-        // TODO (Rol B)
-        // Pedir el ID, verificar que exista y mostrar un submenú para elegir
-        // qué campo modificar: paciente, especialidad, duración o valor por minuto.
+        String id;
+        do {
+            System.out.print("Ingrese el ID del turno a actualizar: ");
+            id = sc.nextLine().trim();
+            if (id.isEmpty()) {
+                System.out.println("El ID no puede estar vacío. Intente de nuevo.");
+            }
+        } while (id.isEmpty());
+    
+        int indice = buscarIndicePorId(id);
+    
+        if (indice == -1) {
+            System.out.println("No existe un turno con ese ID.");
+            return;
+        }
+    
+        String[] t = turnos.get(indice);
+    
+        System.out.println("¿Qué campo desea modificar?");
+        System.out.println("1. Paciente");
+        System.out.println("2. Especialidad");
+        System.out.println("3. Duración");
+        System.out.println("4. Valor por minuto");
+    
+        int opcion = -1;
+        boolean opcionValida = false;
+        do {
+            System.out.print("Opción: ");
+            String entrada = sc.nextLine().trim();
+            if (entrada.isEmpty()) {
+                System.out.println("Debe ingresar una opción. Intente de nuevo.");
+                continue;
+            }
+            try {
+                opcion = Integer.parseInt(entrada);
+                if (opcion >= 1 && opcion <= 4) {
+                    opcionValida = true;
+                } else {
+                    System.out.println("Opción fuera de rango. Debe ser entre 1 y 4.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un número válido.");
+            }
+        } while (!opcionValida);
+    
+        switch (opcion) {
+            case 1:
+                String nuevoPaciente;
+                do {
+                    System.out.print("Nuevo paciente: ");
+                    nuevoPaciente = sc.nextLine().trim();
+                    if (nuevoPaciente.isEmpty()) {
+                        System.out.println("El paciente no puede estar vacío. Intente de nuevo.");
+                    }
+                } while (nuevoPaciente.isEmpty());
+                t[PACIENTE] = nuevoPaciente;
+                break;
+    
+            case 2:
+                String nuevaEspecialidad;
+                do {
+                    System.out.print("Nueva especialidad: ");
+                    nuevaEspecialidad = sc.nextLine().trim();
+                    if (nuevaEspecialidad.isEmpty()) {
+                        System.out.println("La especialidad no puede estar vacía. Intente de nuevo.");
+                    }
+                } while (nuevaEspecialidad.isEmpty());
+                t[ESPECIALIDAD] = nuevaEspecialidad;
+                break;
+    
+            case 3:
+                String nuevaDuracion = null;
+                while (nuevaDuracion == null) {
+                    System.out.print("Nueva duración (minutos): ");
+                    String entrada = sc.nextLine().trim();
+                    if (entrada.isEmpty()) {
+                        System.out.println("La duración no puede estar vacía. Intente de nuevo.");
+                        continue;
+                    }
+                    try {
+                        int valor = Integer.parseInt(entrada);
+                        if (valor <= 0) {
+                            System.out.println("La duración debe ser mayor a 0.");
+                        } else {
+                            nuevaDuracion = entrada; 
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Debe ingresar un número entero válido.");
+                    }
+                }
+                t[DURACION] = nuevaDuracion;
+                break;
+    
+            case 4:
+                String nuevoValor = null;
+                while (nuevoValor == null) {
+                    System.out.print("Nuevo valor por minuto: ");
+                    String entrada = sc.nextLine().trim();
+                    if (entrada.isEmpty()) {
+                        System.out.println("El valor no puede estar vacío. Intente de nuevo.");
+                        continue;
+                    }
+                    try {
+                        double valor = Double.parseDouble(entrada);
+                        if (valor <= 0) {
+                            System.out.println("El valor debe ser mayor a 0.");
+                        } else {
+                            nuevoValor = entrada; // se guarda como String
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Debe ingresar un número válido.");
+                    }
+                }
+                t[VALOR_MINUTO] = nuevoValor;
+                break;
+        }
+    
+        System.out.println("Turno actualizado correctamente.");
     }
 
     static void cancelarTurno() {
-        // TODO (Rol B)
-        // Pedir el ID, verificar que exista, pedir confirmación (S/N) y eliminar
-        // con turnos.remove(indice);
+        String id;
+        do {
+            System.out.print("Ingrese el ID del turno a cancelar: ");
+            id = sc.nextLine().trim();
+            if (id.isEmpty()) {
+                System.out.println("El ID no puede estar vacío. Intente de nuevo.");
+            }
+        } while (id.isEmpty());
+    
+        int indice = buscarIndicePorId(id);
+    
+        if (indice == -1) {
+            System.out.println("No existe un turno con ese ID.");
+            return;
+        }
+    
+        String confirmacion;
+        do {
+            System.out.print("¿Confirma la cancelación del turno? (S/N): ");
+            confirmacion = sc.nextLine().trim();
+            if (confirmacion.isEmpty()) {
+                System.out.println("Debe responder S o N: ");
+            }
+        } while (confirmacion.isEmpty());
+    
+        if (confirmacion.equalsIgnoreCase("S")) {
+            turnos.remove(indice);
+            System.out.println("Turno cancelado.");
+        } else {
+            System.out.println("Cancelación abortada.");
+        }
     }
 
     // ============ ROL C: feature/calculos-validaciones ============
@@ -148,10 +316,13 @@ public class ClinicaApp {
 
     static String leerTexto(String msg) {
         String valor;
+                
         do {
-            System.out.print(msg);
+            System.out.print(msg
+                ;
             valor = sc.nextLine().trim();
-            if (valor.isEmpty()) System.out.println("Este campo no puede quedar vacío.");
+            if (valor.isEmpty())
+                System.out.println("Este campo no puede quedar vacío.");
         } while (valor.isEmpty());
         return valor;
     }
