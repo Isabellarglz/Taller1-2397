@@ -93,38 +93,77 @@ public class ClinicaApp {
         return -1;
     }
 
-static void buscarTurnoPorId() {
-    String id;
-
-    while (true) {
-        System.out.print("Ingrese el ID del turno a buscar: ");
-        id = sc.nextLine().trim();
-
-        if (!id.isEmpty()) {
-            break;
+    static void buscarTurnoPorId() {
+        String id;
+    
+        while (true) {
+            System.out.print("Ingrese el ID del turno a buscar: ");
+            id = sc.nextLine().trim();
+    
+            if (!id.isEmpty()) {
+                break;
+            }
+    
+            System.out.println("Error: el ID no puede estar vacío. Intente nuevamente.");
         }
-
-        System.out.println("Error: el ID no puede estar vacío. Intente nuevamente.");
+    
+        int indice = buscarIndicePorId(id);
+    
+        if (indice == -1) {
+            System.out.println("No existe un turno con ese ID.");
+        } else {
+            Turno t = turnos.get(indice);
+            System.out.println("ID: " + t.getId());
+            System.out.println("Paciente: " + t.getPaciente());
+            System.out.println("Especialidad: " + t.getEspecialidad());
+            System.out.println("Duración: " + t.getDuracion());
+            System.out.println("Valor por minuto: " + t.getValorPorMinuto());
+        }
     }
-
-    int indice = buscarIndicePorId(id);
-
-    if (indice == -1) {
-        System.out.println("No existe un turno con ese ID.");
-    } else {
-        Turno t = turnos.get(indice);
-        System.out.println("ID: " + t.getId());
-        System.out.println("Paciente: " + t.getPaciente());
-        System.out.println("Especialidad: " + t.getEspecialidad());
-        System.out.println("Duración: " + t.getDuracion());
-        System.out.println("Valor por minuto: " + t.getValorPorMinuto());
-    }
-}
 
     static void actualizarTurno() {
-        // TODO (Rol B)
-        // Pedir el ID, verificar que exista y mostrar un submenú para elegir
-        // qué campo modificar: paciente, especialidad, duración o valor por minuto.
+        System.out.print("Ingrese el ID del turno a actualizar: ");
+        String id = sc.nextLine();
+    
+        int indice = buscarIndicePorId(id);
+    
+        if (indice == -1) {
+            System.out.println("No existe un turno con ese ID.");
+            return;
+        }
+    
+        Turno t = turnos.get(indice);
+    
+        System.out.println("¿Qué campo desea modificar?");
+        System.out.println("1. Paciente");
+        System.out.println("2. Especialidad");
+        System.out.println("3. Duración");
+        System.out.println("4. Valor por minuto");
+        System.out.print("Opción: ");
+        int opcion = Integer.parseInt(sc.nextLine());
+    
+        switch (opcion) {
+            case 1:
+                System.out.print("Nuevo paciente: ");
+                t.setPaciente(sc.nextLine());
+                break;
+            case 2:
+                System.out.print("Nueva especialidad: ");
+                t.setEspecialidad(sc.nextLine());
+                break;
+            case 3:
+                System.out.print("Nueva duración: ");
+                t.setDuracion(Integer.parseInt(sc.nextLine()));
+                break;
+            case 4:
+                System.out.print("Nuevo valor por minuto: ");
+                t.setValorPorMinuto(Double.parseDouble(sc.nextLine()));
+                break;
+            default:
+                System.out.println("Opción inválida.");
+        }
+    
+        System.out.println("Turno actualizado correctamente.");
     }
 
     static void cancelarTurno() {
