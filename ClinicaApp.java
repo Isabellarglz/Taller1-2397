@@ -93,12 +93,33 @@ public class ClinicaApp {
         return -1;
     }
 
-    static void buscarTurnoPorId() {
-        // TODO (Rol B)
-        // Pedir el ID, usar buscarIndicePorId y mostrar los datos o un mensaje de "no existe".
-  
-        // Datos a mostrar: idTurno, nombrePaciente, especialidad, duracionMinutos, valorMinuto
+static void buscarTurnoPorId() {
+    String id;
+
+    while (true) {
+        System.out.print("Ingrese el ID del turno a buscar: ");
+        id = sc.nextLine().trim();
+
+        if (!id.isEmpty()) {
+            break;
+        }
+
+        System.out.println("Error: el ID no puede estar vacío. Intente nuevamente.");
     }
+
+    int indice = buscarIndicePorId(id);
+
+    if (indice == -1) {
+        System.out.println("No existe un turno con ese ID.");
+    } else {
+        Turno t = turnos.get(indice);
+        System.out.println("ID: " + t.getId());
+        System.out.println("Paciente: " + t.getPaciente());
+        System.out.println("Especialidad: " + t.getEspecialidad());
+        System.out.println("Duración: " + t.getDuracion());
+        System.out.println("Valor por minuto: " + t.getValorPorMinuto());
+    }
+}
 
     static void actualizarTurno() {
         // TODO (Rol B)
