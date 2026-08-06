@@ -363,6 +363,7 @@ public class ClinicaApp {
             System.out.println("No hay turnos registrados.");
             return;
         }
+
         String especialidadBuscada = leerTexto("Ingrese la especialidad: ");
 
         int cantidad = 0;
@@ -373,12 +374,14 @@ public class ClinicaApp {
         for (String[] turno : turnos) {
 
             if (turno[ESPECIALIDAD].equalsIgnoreCase(especialidadBuscada)) {
+
                 System.out.println("ID: " + turno[ID]);
 
                 cantidad++;
                 sumaDuracion += Integer.parseInt(turno[DURACION]);
             }
         }  
+
         if (cantidad == 0) {
 
             System.out.println("No existen turnos para esa especialidad.");
